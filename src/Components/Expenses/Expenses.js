@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ExpenseItem from './ExpenseItem';
+import ExpenseFilter from '../ExpenseFilter/ExpenseFilter';
 import Card from '../Card/Card';
 import './Expenses.css';
 
@@ -9,9 +10,13 @@ const Expenses = (props) => {
     const getExpense = (expense) => {
         props.onSelectedExpense(expense)
     }
+    const getSearchText = (search) => {
+        props.onFilterHandler(search)
+    }
     return (
         <Card className="expenses">
-            {items.length == 0  && ( 
+            <ExpenseFilter onSearchText={getSearchText} />
+            {items.length === 0  && ( 
                 <div className="no-data">
                     No Item Added!
                 </div>

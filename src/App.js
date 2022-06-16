@@ -1,56 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import ExpenseForm from './Components/ExpenseForm/ExpenseForm';
 import Expenses from './Components/Expenses/Expenses';
 function App() {
   const [expenses, setExpenses] = useState([]);
-  const datas = [
-    // {
-    //   id: 'e1',
-    //   itemName: 'Statue',
-    //   amount: 94.12,
-    //   date: new Date(2020, 7, 10),
-    // },
-    // { id: 'e2', 
-    //   itemName: 'Laptop', 
-    //   amount: 799.49, 
-    //   date: new Date(2021, 2, 7) 
-    // },
-    // {
-    //   id: 'e3',
-    //   itemName: 'PC',
-    //   amount: 294.67,
-    //   date: new Date(2021, 2, 2),
-    // },
-    // {
-    //   id: 'e4',
-    //   itemName: 'Mouse',
-    //   amount: 450,
-    //   date: new Date(2021, 5, 1),
-    // },
-  ];
-
+  const [oldExpense, setoldExpense] = useState([]);
   useState(() => {
-    setExpenses(datas)
+
   }, [])
 
   const addExpenseHandler = (expense) => {
-    datas.push(expense);
-    setExpenses(datas);
+    setExpenses((prevState) => {
+      return [...prevState, expense]
+    });
+    setoldExpense((prevState) => {
+      return [...prevState, expense]
+    });
   }
 
   const deleteExpenseHandler = (expense) => {
-    const index = datas.map(item => { return item.id }).indexOf(expense.id);
+    const index = expenses.map(item => { return item.id }).indexOf(expense.id);
     if (index > -1) {
-      datas.splice(index, 1);
+      expenses.splice(index, 1);
     }
-    setExpenses(datas);
+    setExpenses((prevState) => {
+      return [...prevState]
+    });
+    setoldExpense(expenses);
+  }
+
+  const filterHandler = (search) => {
+    if (search !== "") {
+      let newData = expenses.filter(item => (item.itemName === search || item.amount === search))
+      setExpenses(newData)
+    }else {
+      setExpenses(oldExpense)
+    }
   }
 
   return (
-    <div>
+    <Fragment>
       <ExpenseForm onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} onSelectedExpense={deleteExpenseHandler} />
-    </div>
+      <Expenses items={expenses} onSelectedExpense={deleteExpenseHandler} onFilterHandler={filterHandler} />
+    </Fragment>
   );
 }
 
