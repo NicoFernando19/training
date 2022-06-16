@@ -1,5 +1,5 @@
 import React from "react";
-import './ExpenseFilter.css'
+import styles from './ExpenseFilter.module.css'
 import Wrapper from "../Helper/Wrapper";
 
 const ExpenseFilter = (props) => {
@@ -10,13 +10,14 @@ const ExpenseFilter = (props) => {
     return (
         <Wrapper>
             <div>
-                <div className='new-expense__controls'>
-                    <div className='new-expense__control'>
-                    <label>Search</label>
-                    <input
-                        type='text'
-                        onChange={filterHandler}
-                    />
+                <div className={styles.form_control}>
+                    <div className={styles.form_control}>
+                        <label className={`${styles.form_control} ${styles.label}`}>Search</label>
+                        <input
+                            className={`${styles.form_control} ${styles.input}`}
+                            type='text'
+                            onChange={filterHandler}
+                        />
                     </div>
                 </div>
             </div>

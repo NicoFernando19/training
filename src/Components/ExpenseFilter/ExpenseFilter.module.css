@@ -1,4 +1,4 @@
-.new-expense__controls {
+.form_control {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -6,14 +6,14 @@
     text-align: left;
 }
 
-.new-expense__control label {
+.label {
     font-weight: bold;
     color: #FFFFFF;
     margin-bottom: 0.5rem;
     display: block;
 }
 
-.new-expense__control input {
+.input {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
