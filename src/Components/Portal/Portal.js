@@ -1,10 +1,14 @@
 import React, { Fragment } from "react";
 import ReactDom from "react-dom";
+import Counter from "../CounterComponent/Counter";
 
 const PortalTitle = (props) => {
     return (
-        <div>
-            <h1>Hi {props.work}</h1>
+        <div style={{'textAlign': 'center'}}>
+            <div>
+                <h1>Hi {props.work}</h1>
+            </div>
+            <Counter />
         </div>
     );
 }

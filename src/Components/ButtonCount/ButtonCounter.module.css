@@ -1,0 +1,41 @@
+.btn_counter {
+  font: inherit;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 1px solid #ffffff;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+}
+
+.btn_success {
+    background-color: #3EC70B;
+}
+  
+.btn_danger {
+    background-color: #df1919;
+}
+
+.btn_danger:hover {
+    background-color: #eb1d1d;
+}
+
+.btn_success:hover {
+    background-color: #52E81A;
+}
+
+.btn_counter:hover,
+.btn_counter:active {
+  border-color: #ffffff;
+}
+
+.btn_counter.alternative {
+  color: #220131;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.btn_counter.alternative:hover,
+.btn_counter.alternative:active {
+  background-color: #df1919;
+}
