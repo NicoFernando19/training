@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './ExpenseFilter.module.css'
 import Wrapper from "../Helper/Wrapper";
 import { CounterUseContext } from "../../Context/CounterContext/CounterUseContext";
 
 const ExpenseFilter = (props) => {
     const {count} = CounterUseContext();
+    const [searchText, setSearchText] = useState('')
+
+    //debounce
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            props.onSearchText(searchText)
+        }, 1000)
+        return () => {
+            clearTimeout(debounce);
+        }
+    }, [searchText])
     const filterHandler = (event) => {
-        let searchText = event.target.value;
-        props.onSearchText(searchText)
+        setSearchText(event.target.value)
     }
     return (
         <Wrapper>
@@ -18,6 +28,7 @@ const ExpenseFilter = (props) => {
                         <input
                             className={`${styles.form_control} ${styles.input}`}
                             type='text'
+                            value={searchText}
                             onChange={filterHandler}
                         />
                     </div>

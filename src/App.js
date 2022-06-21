@@ -1,47 +1,39 @@
 import React, { useState, Fragment } from 'react';
-import ExpenseForm from './Components/ExpenseForm/ExpenseForm';
-import Expenses from './Components/Expenses/Expenses';
+import ReactDom from "react-dom";
+import Header from './Components/Modules/Header/Header';
+import Login from './Components/Modules/Login/Login';
+import Home from './Components/Modules/Home/Home';
 
 function App() {
-  const [expenses, setExpenses] = useState([]);
-  const [oldExpense, setoldExpense] = useState([]);
-  useState(() => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useState(() => {
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+
+    if (storedUserLoggedInInformation === '1') {
+      setIsLoggedIn(true);
+    }
   }, [])
 
-  const addExpenseHandler = (expense) => {
-    setExpenses((prevState) => {
-      return [...prevState, expense]
-    });
-    setoldExpense((prevState) => {
-      return [...prevState, expense]
-    });
-  }
+  const loginHandler = (email, password) => {
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
 
-  const deleteExpenseHandler = (expense) => {
-    const index = expenses.map(item => { return item.id }).indexOf(expense.id);
-    if (index > -1) {
-      expenses.splice(index, 1);
-    }
-    setExpenses((prevState) => {
-      return [...prevState]
-    });
-    setoldExpense(expenses);
-  }
-
-  const filterHandler = (search) => {
-    if (search !== "") {
-      let newData = expenses.filter(item => (item.itemName === search || item.amount === search))
-      setExpenses(newData)
-    }else {
-      setExpenses(oldExpense)
-    }
-  }
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
 
   return (
     <Fragment>
-      <ExpenseForm onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} onSelectedExpense={deleteExpenseHandler} onFilterHandler={filterHandler} />
+      {ReactDom.createPortal(<Header isAuthenticated={isLoggedIn} onLogout={logoutHandler} />, 
+        document.getElementById('portal-root')
+      )}
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
     </Fragment>
   );
 }
