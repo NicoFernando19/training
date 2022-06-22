@@ -1,40 +1,22 @@
-import React, { useState, Fragment } from 'react';
+import React, { useContext } from 'react';
 import ReactDom from "react-dom";
 import Header from './Components/Modules/Header/Header';
 import Login from './Components/Modules/Login/Login';
 import Home from './Components/Modules/Home/Home';
+import { AuthContext } from './Store/AuthContext';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useState(() => {
-    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
-
-    if (storedUserLoggedInInformation === '1') {
-      setIsLoggedIn(true);
-    }
-  }, [])
-
-  const loginHandler = (email, password) => {
-    localStorage.setItem('isLoggedIn', '1');
-    setIsLoggedIn(true);
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem('isLoggedIn');
-    setIsLoggedIn(false);
-  };
-
+  const ctx = useContext(AuthContext)
   return (
-    <Fragment>
-      {ReactDom.createPortal(<Header isAuthenticated={isLoggedIn} onLogout={logoutHandler} />, 
+    <React.Fragment>
+      {ReactDom.createPortal(<Header />, 
         document.getElementById('portal-root')
       )}
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {!ctx.isLoggedIn && <Login />}
+        {ctx.isLoggedIn && <Home />}
       </main>
-    </Fragment>
+    </React.Fragment>
   );
 }
 

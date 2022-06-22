@@ -23,7 +23,7 @@ const ExpenseItem = (props) => {
       <div className={`${styles.expense_item} ${styles.expense_item__description}`}>
         <h2>{props.itemName}</h2>
         <div className={`${styles.expense_item} ${styles.expense_item__price}`}>${props.amount}</div>
-        <div style={{'padding-left':'0.5rem'}}>
+        <div style={{'paddingLeft':'0.5rem'}}>
           <button className={`${styles.btn_expense} ${styles.btn_danger}`} onClick={expenseData}>Delete</button>
           <button className={`${styles.btn_expense} ${styles.btn_success}`} onClick={() => CountHandler(1)}>Add</button>
         </div>
