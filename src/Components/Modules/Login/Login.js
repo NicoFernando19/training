@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
+import { AuthContext } from '../../../Store/AuthContext';
 
 import Card from '../../Card/Card';
 import Button from '../Button/Button';
@@ -25,7 +26,8 @@ const passwordReducer = (state, action) => {
 }
 
 
-const Login = (props) => {
+const Login = () => {
+  const ctx = useContext(AuthContext)
   // const [enteredEmail, setEnteredEmail] = useState('');
   // const [emailIsValid, setEmailIsValid] = useState();
   // const [enteredPassword, setEnteredPassword] = useState('');
@@ -79,7 +81,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    ctx.onLogin(emailState.value, passwordState.value);
   };
 
   return (

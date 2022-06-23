@@ -44,12 +44,14 @@ const ExpenseForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
+    
+    if (nameInputRef.current.value === "" || amountInputRef.current.value === "" || dateInputRef.current.value === "") {
+      return alert("Field Cannot be Empty!")
+    }
     //ref
     const name = nameInputRef.current.value;
     const amount = amountInputRef.current.value;
     const date = dateInputRef.current.value;
-
     // const expenseData = {
     //   itemName: form.itemName,
     //   amount: form.amount,
